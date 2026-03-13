@@ -1,0 +1,135 @@
+experiment:
+  exp_name: tegb_yolo11_coco128_v2
+  output_root: runs
+  seed: 42
+  device: cuda
+  model_family: yolo11
+  weights: yolo11n.pt
+  target_layer: model.22
+  num_classes: 80
+  checkpoint_every: 1
+  save_best: true
+  best_metric: val_total
+  best_mode: min
+
+data:
+  images_dir: D:/Dataset/coco128/images/train2017
+  labels_dir: D:/Dataset/coco128/labels/train2017
+  image_size: 640
+  crop_size: 224
+  max_samples: 256
+  batch_size: 8
+  num_workers: 0
+  shuffle: true
+  val_split_ratio: 0.2
+  use_weighted_sampler: false
+  sampler_power: 1.0
+  sampler_empty_weight: 0.2
+  sampler_min_weight: 0.05
+  sampler_max_weight: 20.0
+
+optim:
+  epochs: 1
+  lr: 0.001
+  weight_decay: 0.0001
+  grad_clip: 5.0
+  train_backbone: false
+  amp: false
+
+loss:
+  lambda_edl: 1.0
+  lambda_gw: 0.2
+  lambda_ph: 0.2
+  lambda_hn: 0.1
+  gw_entropy_reg: 0.05
+  gw_metric_weight: 0.1
+  topo_max_points: 128
+  enable_tgb: true
+  enable_edl: true
+  enable_gw: true
+  enable_ph: true
+  enable_3wd: true
+  enable_class_balanced_det: true
+  det_class_balance_power: 0.5
+  det_class_weight_min: 0.25
+  det_class_weight_max: 4.0
+
+granular:
+  mode: prob_ellipsoid
+  purity_threshold: 0.9
+  min_members: 8
+  max_balls: 256
+  split_k: 2
+  ph_persistence_threshold: 0.05
+  radius_shrink_factor: 0.75
+  confidence_level: 0.95
+  entropy_threshold: 1.2
+  entropy_log_base: 2.0
+  cov_shrinkage: 0.2
+  cov_jitter: 0.0001
+  min_eig: 0.000001
+  split_algorithm: mahalanobis_kmeans
+  covariance_estimator: ledoit_wolf
+  split_max_iter: 25
+  split_tolerance: 0.0001
+  split_min_child: 4
+  max_split_depth: 12
+  min_entropy_gain: 0.001
+  ph_max_points: 128
+
+decision:
+  mode: hybrid_collision
+  alpha: 0.9
+  beta: 0.1
+  uncertainty_accept: 0.2
+  uncertainty_reject: 0.6
+  collision_gamma: 1.0
+  collision_metric: bhattacharyya
+  collision_threshold: 0.8
+  boundary_scale_k1: 0.2
+  boundary_scale_k2: 0.8
+
+vsf:
+  semantic_weight: 0.5
+  k_min: 3
+  k_max: 30
+  k_step: 3
+  max_points: 2000
+  cluster_max_points: 5000
+
+visualization:
+  enabled: true
+  max_points: 6000
+  max_ball_overlays: 160
+  focus_label_source: target
+  class_legend_max_items: 14
+  class_compare_mode: class
+  class_compare_topk: 2
+  class_compare_label_source: target
+  balls_3d_enabled: true
+  balls_3d_radius_quantiles: [0.33, 0.66]
+  group_cmap_name: tab10
+  embedding_source: auto_high
+  embedding_auto_tsne_max_points: 5000
+  embedding_metric: cosine
+  highdim_pre_reduce: pca
+  highdim_pca_components: 50
+  tsne_perplexity: 35.0
+  tsne_max_iter: 1000
+  umap_n_neighbors: 30
+  umap_min_dist: 0.1
+  class_groups:
+    - [bicycle, motorcycle]
+    - [person]
+    - [car, bus, truck]
+    - [bottle, cup, wine glass, bowl]
+  include_classes: []
+
+ablation:
+  seeds: [42, 43, 44]
+  variants: [Full, -TGB, -EDL, -GW, -PH, -3WD, -MAXR]
+
+
+
+
+

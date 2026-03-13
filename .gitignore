@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Build / packaging
+build/
+dist/
+site/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Test / type checker / linter caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE / editor
+.vscode/
+.idea/
+*.code-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local experiment outputs
+runs/
+analysis/
+artifacts/
+logs/
+wandb/
+mlruns/
+tensorboard/
+events.out.tfevents*
+
+# Model weights / checkpoints / export binaries
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.engine
+*.trt
+*.torchscript
+
+# Local generated data / caches
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+# Common local report exports
+result.xlsx
+result.csv
